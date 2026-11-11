@@ -1,0 +1,11 @@
+{
+  "name": "simulador-fabrica-cloud-edge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simulador didáctico de Cloud, Edge, Fog y Mist para 2.º DAM",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=18" }
+}
