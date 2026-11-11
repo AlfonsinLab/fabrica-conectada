@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Laboratorio de procesamiento Cloud, Edge, Fog y Mist para 2.º DAM">
+  <title>Fábrica Conectada · Laboratorio Cloud y Edge</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="topline"><span class="kicker">TEMA 3 · CLOUD COMPUTING</span><span class="topright">Laboratorio interactivo · 2.º DAM</span></div>
+    <div class="hero-main">
+      <div><p class="eyebrow">SIMULACIÓN DE UNA FÁBRICA INTELIGENTE</p><h1>¿Dónde conviene<br><span>procesar los datos?</span></h1><p class="lead">Experimenta con sensores, decisiones locales y un servicio cloud real. Después, provoca fallos y observa qué sigue funcionando.</p></div>
+      <div class="hero-art" aria-hidden="true"><div class="cloud-bubble">CLOUD</div><div class="line"></div><div class="edge-block">EDGE</div><div class="network"><span>M1</span><span>M2</span><span>M3</span></div></div>
+    </div>
+  </header>
+  <main class="container">
+    <section class="intro panel" aria-label="Instrucciones">
+      <div class="intro-head"><span class="step-circle">1</span><div><h2>Modifica las máquinas</h2><p>Mueve los controles. Después, compara los distintos niveles de procesamiento.</p></div></div>
+      <div class="intro-note">Todos los sensores y los equipos Mist, Edge y Fog son <strong>simulados en el navegador</strong>. La evaluación Cloud sí se solicita a un servidor mediante una API HTTP cuando hay conexión.</div>
+    </section>
+    <section class="machine-grid" id="machines" aria-label="Máquinas simuladas">
+      <article class="machine panel" data-id="M1"><div class="machine-head"><div><p class="muted upper">LÍNEA DE PRODUCCIÓN</p><h3>Máquina 01</h3></div><span class="status normal" data-status>Normal</span></div><div class="gauge"><span class="muted">Temperatura</span><strong><output data-temp-label>65</output> <small>°C</small></strong></div><input aria-label="Temperatura máquina 1" data-temp type="range" min="20" max="110" step="1" value="65"><div class="gauge second"><span class="muted">Vibración</span><strong><output data-vib-label>3</output> <small>mm/s</small></strong></div><input aria-label="Vibración máquina 1" data-vib type="range" min="0" max="12" step="1" value="3"><div class="edge-line" data-edge>Sin anomalías</div></article>
+      <article class="machine panel" data-id="M2"><div class="machine-head"><div><p class="muted upper">LÍNEA DE PRODUCCIÓN</p><h3>Máquina 02</h3></div><span class="status normal" data-status>Normal</span></div><div class="gauge"><span class="muted">Temperatura</span><strong><output data-temp-label>73</output> <small>°C</small></strong></div><input aria-label="Temperatura máquina 2" data-temp type="range" min="20" max="110" step="1" value="73"><div class="gauge second"><span class="muted">Vibración</span><strong><output data-vib-label>4</output> <small>mm/s</small></strong></div><input aria-label="Vibración máquina 2" data-vib type="range" min="0" max="12" step="1" value="4"><div class="edge-line" data-edge>Sin anomalías</div></article>
+      <article class="machine panel" data-id="M3"><div class="machine-head"><div><p class="muted upper">LÍNEA DE PRODUCCIÓN</p><h3>Máquina 03</h3></div><span class="status normal" data-status>Normal</span></div><div class="gauge"><span class="muted">Temperatura</span><strong><output data-temp-label>68</output> <small>°C</small></strong></div><input aria-label="Temperatura máquina 3" data-temp type="range" min="20" max="110" step="1" value="68"><div class="gauge second"><span class="muted">Vibración</span><strong><output data-vib-label>2</output> <small>mm/s</small></strong></div><input aria-label="Vibración máquina 3" data-vib type="range" min="0" max="12" step="1" value="2"><div class="edge-line" data-edge>Sin anomalías</div></article>
+    </section>
+    <section class="panel experiment" aria-label="Experimento cloud">
+      <div class="intro-head"><span class="step-circle">2</span><div><h2>Compara el procesamiento</h2><p>Edge reacciona inmediatamente. Cloud recibe las tres mediciones por Internet.</p></div></div>
+      <div class="switch-grid"><div><label for="latency">Retraso adicional simulado en Cloud: <strong id="latency-value">800 ms</strong></label><input id="latency" type="range" min="0" max="3000" step="200" value="800"><p class="smallnote">El tiempo real incluye además la latencia de la red y del servidor.</p></div><label class="connection"><input id="disconnect" type="checkbox"><span class="switch-track"></span><span><strong>Simular corte de Internet</strong><small>Bloquea las peticiones Cloud desde este simulador, sin desconectar el equipo.</small></span></label></div>
+      <div class="action-row"><button id="cloud-action" class="primary">Analizar en Cloud <span aria-hidden="true">↗</span></button><button id="reset" class="secondary">Restablecer valores</button><span id="network-indicator" class="network-indicator online">● Simulación de red activa</span></div>
+    </section>
+    <section class="levels" aria-label="Cuatro niveles de procesamiento">
+      <div class="levels-title"><span class="step-circle">3</span><div><h2>Observa qué decide cada nivel</h2><p>Los resultados locales se actualizan al mover los sensores. El resultado remoto requiere pulsar «Analizar en Cloud».</p></div></div>
+      <div class="levels-grid">
+        <article class="level panel"><div class="level-head"><div class="level-icon mist">M</div><div><span class="tag">EN EL SENSOR · SIMULADO</span><h3>Mist</h3></div></div><p>Regla sencilla: el sensor de M1 avisa si supera los <strong>80 °C</strong>.</p><div class="result" id="mist-result" aria-live="polite">Temperatura dentro del umbral.</div></article>
+        <article class="level panel"><div class="level-head"><div class="level-icon edge">E</div><div><span class="tag">JUNTO A LAS MÁQUINAS · SIMULADO</span><h3>Edge</h3></div></div><p>Evalúa temperatura y vibración de cada máquina, sin depender de la petición Cloud.</p><div class="result" id="edge-result" aria-live="polite">3 máquinas sin anomalías.</div></article>
+        <article class="level panel"><div class="level-head"><div class="level-icon fog">F</div><div><span class="tag">PASARELA LOCAL · SIMULADA</span><h3>Fog</h3></div></div><p>Reúne las mediciones de las tres máquinas y obtiene una visión de conjunto.</p><div class="result" id="fog-result" aria-live="polite">Temperatura media: 68,7 °C.</div></article>
+        <article class="level panel"><div class="level-head"><div class="level-icon cloud">C</div><div><span class="tag">SERVIDOR REMOTO · API REAL</span><h3>Cloud</h3></div></div><p>Envía las lecturas a <code>/api/cloud</code> para calcular el resumen del conjunto.</p><div class="result cloud-result" id="cloud-result" aria-live="polite">Pulsa «Analizar en Cloud» para enviar las lecturas.</div><p class="elapsed" id="cloud-elapsed"></p></article>
+      </div>
+    </section>
+    <section class="panel tasks"><div class="intro-head"><span class="step-circle">4</span><div><h2>Cuatro pruebas para la actividad</h2><p>Realízalas y anota las observaciones en tu ficha de Moodle.</p></div></div><ol><li><strong>Situación normal:</strong> deja las máquinas en estado normal y solicita un análisis Cloud.</li><li><strong>Alerta local:</strong> sube M1 a <strong>95 °C</strong> y observa Mist, Edge y Fog. Solicita un nuevo análisis Cloud.</li><li><strong>Red lenta:</strong> coloca el retraso adicional en <strong>3000 ms</strong>. Compara el resultado instantáneo de Edge con el del servidor remoto.</li><li><strong>Sin conexión simulada:</strong> activa «Simular corte de Internet» y vuelve a analizar. Observa qué partes continúan funcionando.</li></ol><p class="smallnote"><strong>Importante:</strong> esta práctica usa un modelo didáctico simplificado. En una fábrica real, las paradas de emergencia se gestionan mediante sistemas de seguridad industrial específicos, no desde un navegador.</p></section>
+  </main>
+  <footer>Digitalización Aplicada al Sector Productivo · 2.º DAM · Tema 3 <span>Simulador didáctico · Sin datos personales ni cuentas</span></footer>
+</body>
+</html>
